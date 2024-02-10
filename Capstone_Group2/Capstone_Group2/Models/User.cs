@@ -7,7 +7,7 @@ namespace Capstone_Group2.Models
         public int Id { get; set; }
 
         [Required]
-        public string FullName { get; set; }
+        public string Fullname { get; set; }
 
         [Required]
         [EmailAddress]
