@@ -1,3 +1,3 @@
 # Capstone_Group2
-# Romnick
+# Romnick Zinampan
 # James Arand
