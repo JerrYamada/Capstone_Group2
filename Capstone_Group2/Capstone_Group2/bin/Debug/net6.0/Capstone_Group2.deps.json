@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Capstone_Group2/1.0.0": {
+        "runtime": {
+          "Capstone_Group2.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Capstone_Group2/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

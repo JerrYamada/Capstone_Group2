@@ -18,7 +18,7 @@ namespace Capstone_Group2.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }
