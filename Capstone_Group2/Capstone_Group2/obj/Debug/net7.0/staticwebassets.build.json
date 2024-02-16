@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VUV1ZPXPhvdqe94awBxxVvfUo1p9J87q3CpfVSMTfr8=",
+  "Hash": "JHaVu2tfiNdNY1ilRy//eHEAQEiwvA6izKOvKLl2LUQ=",
   "Source": "Capstone_Group2",
   "BasePath": "_content/Capstone_Group2",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\WINTER 2024\\6 INFO2310 Application Project_Capstone\\Project Folder\\Capstone5\\Capstone_Group2\\Capstone_Group2\\wwwroot\\images\\person.jpg",
+      "SourceId": "Capstone_Group2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\WINTER 2024\\6 INFO2310 Application Project_Capstone\\Project Folder\\Capstone5\\Capstone_Group2\\Capstone_Group2\\wwwroot\\",
+      "BasePath": "_content/Capstone_Group2",
+      "RelativePath": "images/person.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\person.jpg"
     },
     {
       "Identity": "C:\\WINTER 2024\\6 INFO2310 Application Project_Capstone\\Project Folder\\Capstone5\\Capstone_Group2\\Capstone_Group2\\wwwroot\\js\\site.js",
@@ -865,23 +882,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
-    },
-    {
-      "Identity": "C:\\WINTER 2024\\6 INFO2310 Application Project_Capstone\\Project Folder\\Capstone5\\Capstone_Group2\\Capstone_Group2\\wwwroot\\lib\\Images\\person.jpg",
-      "SourceId": "Capstone_Group2",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\WINTER 2024\\6 INFO2310 Application Project_Capstone\\Project Folder\\Capstone5\\Capstone_Group2\\Capstone_Group2\\wwwroot\\",
-      "BasePath": "_content/Capstone_Group2",
-      "RelativePath": "lib/Images/person.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\Images\\person.jpg"
     },
     {
       "Identity": "C:\\WINTER 2024\\6 INFO2310 Application Project_Capstone\\Project Folder\\Capstone5\\Capstone_Group2\\Capstone_Group2\\wwwroot\\lib\\jquery\\dist\\jquery.js",
