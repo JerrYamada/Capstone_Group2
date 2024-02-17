@@ -41,8 +41,9 @@
                         @if (_signInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <form class="form-inline" asp-controller="Account" asp-action="LogOut" method="post">
-                                    <input type="submit" class="nav-link btn btn-link text-dark" value="Logout @User.Identity.Name" />
+                                <form class="form-inline d-flex align-items-center" asp-controller="Account" asp-action="LogOut" method="post">
+                                    <img src="~/images/user.png" alt="User Icon" style="height: 30px; width: 30px" />
+                                    <input type="submit" class="nav-link btn btn-link text-dark ml-2" value="Logout @User.Identity.Name" />
                                 </form>
                             </li>
                         }
