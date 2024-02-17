@@ -32,6 +32,35 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
                     </ul>
+
+@*                     <ul class="navbar-nav">
+                        @if (_signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <form class="form-inline" asp-controller="Account" asp-action="LogOut" method="post">
+                                    <input type="submit" class="nav-link btn btn-link text-dark" value="Logout @User.Identity.Name" />
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="LogIn">Login</a>
+                            </li>
+                        }
+                    </ul> *@
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Account" asp-action="LogIn">Login</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
