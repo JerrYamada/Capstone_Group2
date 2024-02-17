@@ -27,7 +27,7 @@ namespace Capstone_Group2.DataAccess
                 .GetRequiredService<RoleManager<IdentityRole>>();
 
             string username = "admin";
-            string password = "admin";
+            string password = "Admin123#";
             string roleName = "Admin";
 
             // if role doesn't exist, create it
