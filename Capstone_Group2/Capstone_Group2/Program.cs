@@ -1,7 +1,22 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Capstone_Group2.Entities;
+using Capstone_Group2.DataAccess;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+string connectionString = builder.Configuration.GetConnectionString("Capstone_LocalDb");
+
+builder.Services.AddDbContext<CapstoneDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddIdentity<User, IdentityRole>(options => {
+    options.Password.RequiredLength = 8;
+}).AddEntityFrameworkStores<CapstoneDbContext>().AddDefaultTokenProviders();
+
 
 var app = builder.Build();
 
@@ -18,7 +33,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (var scope = scopeFactory.CreateScope())
+{
+    await CapstoneDbContext.CreateAdminUser(scope.ServiceProvider);
+}
 
 app.MapControllerRoute(
     name: "default",
