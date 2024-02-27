@@ -42,7 +42,7 @@
                         {
                             <li class="nav-item">
                                 <form class="form-inline d-flex align-items-center" asp-controller="Account" asp-action="LogOut" method="post">
-                                    <img src="~/images/user.png" alt="User Icon" style="height: 30px; width: 30px" />
+                                    <img src="/images/user.png" alt="User Icon" style="height: 30px; width: 30px" />
                                     <input type="submit" class="nav-link btn btn-link text-dark ml-2" value="Logout @User.Identity.Name" />
                                 </form>
                             </li>
@@ -50,10 +50,10 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="LogIn">Login</a>
+                                <form class="form-inline d-flex align-items-center" asp-controller="Account" asp-action="LogIn" method="post">
+                                    <img src="/images/user.png" alt="User Icon" style="height: 30px; width: 30px" />
+                                    <input type="submit" class="nav-link btn btn-link text-dark ml-2" value="Login" />
+                                </form>
                             </li>
                         }
                     </ul>
