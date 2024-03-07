@@ -1,0 +1,60 @@
+﻿@model CalendarViewModel
+
+@{
+    ViewData["Title"] = "Calendar";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.global.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.js"></script>
+
+<h2>Weekly Calendar</h2>
+
+<div id="calendar"></div>
+
+@section Scripts {
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek', // Display as weekly view
+                events: [ // Example events data
+                    {
+                        title: 'Event 1',
+                        start: '2024-03-07T10:00:00',
+                        end: '2024-03-08T10:00:00'
+                    },
+                    {
+                        title: 'Event 2',
+                        start: '2024-03-09T10:00:00',
+                        end: '2024-03-10T10:00:00'
+                    }
+                    // Add more events as needed
+                ],
+                // Add other configurations here as needed
+            });
+            calendar.render();
+        });
+    </script>
+}
+
+@* Here's how we can implement this using our database + CRUD *@
+@* @section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek', // Display as weekly view
+                themeSystem: 'bootstrap5',
+                events: {
+                    url: '@Url.Action("GetEvents", "Calendar")', // Fetch events from the controller action
+                    method: 'GET'
+                },
+                // Add other configurations here as needed
+            });
+            calendar.render();
+        });
+    </script>
+} *@
