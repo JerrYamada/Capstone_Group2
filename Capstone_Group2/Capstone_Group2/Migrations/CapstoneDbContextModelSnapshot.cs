@@ -36,7 +36,7 @@ namespace Capstone_Group2.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
-
+                   
                     b.HasData(
                         new
                         {
@@ -47,6 +47,11 @@ namespace Capstone_Group2.Migrations
                         {
                             CategoryId = 2,
                             CategoryName = "Work"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Personal"
                         });
                 });
 

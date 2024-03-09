@@ -53,7 +53,8 @@ namespace Capstone_Group2.DataAccess
 
             builder.Entity<Category>().HasData(
                 new Category() { CategoryId = 1, CategoryName = "School" },
-                new Category() { CategoryId = 2, CategoryName = "Work"}
+                new Category() { CategoryId = 2, CategoryName = "Work"},
+                new Category() { CategoryId = 3, CategoryName = "Personal" }
             );
 
             builder.Entity<Priority>().HasData(

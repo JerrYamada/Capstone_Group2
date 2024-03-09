@@ -44,11 +44,11 @@ namespace Capstone_Group2.Controllers
             switch (priorityId)
             {
                 case 1:
-                    return "#87CEEB"; // Light blue for priority ID 1
+                    return "#5F9EA0"; // Light blue for priority ID 1
                 case 2:
-                    return "#FFFF00"; // Yellow for priority ID 2
+                    return "#FFA500"; // Orange for priority ID 2
                 case 3:
-                    return "#FF0000"; // Red for priority ID 3
+                    return "#4169E1"; // Red for priority ID 3
                 default:
                     return ""; // Default color
             }
