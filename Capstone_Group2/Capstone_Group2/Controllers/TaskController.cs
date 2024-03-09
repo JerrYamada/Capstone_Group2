@@ -25,5 +25,7 @@ namespace Capstone_Group2.Controllers
 
             return View(model);
         }
+
+
     }
 }
