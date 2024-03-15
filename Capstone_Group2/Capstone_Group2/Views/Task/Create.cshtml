@@ -32,13 +32,13 @@
 
     <div class="form-group">
         <label asp-for="StartDate"></label>
-        <input asp-for="StartDate" type="datetime" class="form-control" />
+        <input asp-for="StartDate" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
         <span asp-validation-for="StartDate" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="DueDate"></label>
-        <input asp-for="DueDate" type="datetime" class="form-control" />
+        <input asp-for="DueDate" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
         <span asp-validation-for="DueDate" class="text-danger"></span>
     </div>
 
