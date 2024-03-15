@@ -1,0 +1,61 @@
+﻿
+/* styles for login/register page */
+.login-area {
+    background-color: white;
+    padding: 40px;
+    margin-top: 5em;
+    margin-left: 4em;
+    border-radius: 9px;
+    box-shadow: 10px 10px;
+    color: black;
+}
+    .login-area button {
+        background-color: #06c9c0;
+    }
+.register-area {
+    background-color: white;
+    padding: 40px;
+    margin-top: 5em;
+    margin-left: 4em;
+    border-radius: 9px;
+    box-shadow: 10px 10px;
+    color: black;
+}
+    .register-area button {
+        background-color: #06c9c0;
+    }
+
+.description-area {
+    background-color: #14223d;
+    color: #ffffff;
+    padding: 40px;
+    
+}
+.description-area h1 {
+    padding-left: 3em;
+    padding-top: 4em;
+    
+}
+.description-area p {
+    margin-top: -20px;
+    padding-left: 6.7em;
+    
+    font-size: 18px;
+}
+
+
+
+
+
+body {
+    background-color: #14223d;
+
+    color: white;
+}
+
+
+
+
+.form-group {
+    margin-bottom: 13px;
+}

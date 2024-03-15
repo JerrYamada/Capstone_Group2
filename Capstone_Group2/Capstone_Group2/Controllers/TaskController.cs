@@ -22,13 +22,6 @@ namespace Capstone_Group2.Controllers
         public IActionResult GetAllTasks()
         {
             var tasks = _taskDbContext.Tasks
-                .Include(t=>t.TaskName)
-                .Include(t=>t.TaskDescription)
-                .Include(t=>t.TaskId)
-                .Include(t=>t.Start_Date)
-                .Include(t=> t.End_Date)
-                .Include(t=> t.StatusId)
-                .Include(t=>t.CategoryId)
                 .OrderByDescending(t => t.Start_Date)
                 .ToList();
             
