@@ -5,7 +5,7 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<form asp-controller="Task" asp-action="Create" method="post">
+<form asp-controller="Task" asp-action="CreateTask" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">
@@ -39,9 +39,8 @@
     </div>
 
 
-    <button type="submit" class="btn btn-primary">Cancel</button>
     <button type="submit" class="btn btn-primary">Save</button>
-
+    <a asp-controller="Task" asp-action="GetAllTasks" class="btn btn-primary">Cancel</a>
 
     
 </form>

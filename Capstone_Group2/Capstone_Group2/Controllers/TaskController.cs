@@ -38,7 +38,7 @@ namespace Capstone_Group2.Controllers
 
         // GET TASK BY ID
 
-        [HttpGet("/tasks")]
+        [HttpGet("/tasks/get-task")]
         public IActionResult GetTaskById(int Id)
         {
             var task = _taskDbContext.Tasks
@@ -57,7 +57,7 @@ namespace Capstone_Group2.Controllers
 
         // GET TASK BY CATEGORY
 
-        [HttpGet("/tasks")]
+        [HttpGet("/tasks/category")]
         public IActionResult GetTaskByCategory(int categoryId)
         {
             var task = _taskDbContext.Tasks
@@ -79,12 +79,9 @@ namespace Capstone_Group2.Controllers
         [Authorize]
         public IActionResult GetAddTaskRequest()
         {
-            return View("CreateTask", new TimetableTask());
+            return View("Create", new TimetableTask());
         }
-        public IActionResult Create()
-        {
-            return View();
-        }
+       
 
         [HttpPost("/tasks/add-requests")]
         [Authorize]
