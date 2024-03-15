@@ -9,8 +9,8 @@ namespace Capstone_Group2.Models
         public string? TaskName { get; set; }
 
         [Required(ErrorMessage = "Please enter the Task Type.")]
-        [StringLength(255)]
-        public string? TaskType { get; set; }
+        
+        public int TaskType { get; set; }
 
         [Required(ErrorMessage = "Please enter the Task Description.")]
         [StringLength(255)]

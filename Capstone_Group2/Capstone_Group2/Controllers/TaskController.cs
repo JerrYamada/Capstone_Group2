@@ -92,7 +92,7 @@ namespace Capstone_Group2.Controllers
                 var newTask = new TimetableTask()
                 {
                     TaskName = taskModel.TaskName,
-                    //TaskType = taskModel.TaskType,
+                    CategoryId = taskModel.TaskType,
                     TaskDescription = taskModel.TaskDescription,
                     Start_Date = taskModel.StartDate,
                     End_Date = taskModel.DueDate,

@@ -15,8 +15,12 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="TaskType"></label>
-        <input asp-for="TaskType" class="form-control" />
+        <label asp-for="TaskType">Task Type</label>
+        <select asp-for="TaskType" class="form-control">
+            <option value="1">School</option>
+            <option value="2">Work</option>
+            <option value="3">Personal</option>
+        </select>
         <span asp-validation-for="TaskType" class="text-danger"></span>
     </div>
 
