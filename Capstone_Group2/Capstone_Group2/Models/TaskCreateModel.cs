@@ -18,11 +18,11 @@ namespace Capstone_Group2.Models
 
         [Required(ErrorMessage = "Please enter the Start Date.")]
         [DataType(DataType.DateTime)]
-        public string? StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "Please enter the Due Date.")]
         [DataType(DataType.DateTime)]
-        public string? DueDate { get; set; }
+        public DateTime DueDate { get; set; }
 
     }
 }
