@@ -79,7 +79,7 @@ namespace Capstone_Group2.Controllers
         [Authorize]
         public IActionResult GetAddTaskRequest()
         {
-            return View("Create", new TimetableTask());
+            return View("Create", new TaskCreateModel());
         }
        
 
@@ -111,6 +111,7 @@ namespace Capstone_Group2.Controllers
 
             }
         }
+
 
         // EDIT TASK BY ID
 
