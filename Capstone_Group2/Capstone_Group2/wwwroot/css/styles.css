@@ -66,3 +66,13 @@ body {
     font-family: "TimeWize", 'Bauhaus 93';
     font-size: 32px;
 }
+
+th {
+    color: white;
+    font-family: 'MV Boli';
+    font-size: 18px;
+}
+
+td{
+    color: white;
+}
