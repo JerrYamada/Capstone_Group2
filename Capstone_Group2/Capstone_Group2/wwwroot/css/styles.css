@@ -59,3 +59,10 @@ body {
 .form-group {
     margin-bottom: 13px;
 }
+
+
+/* style for Timewise on navbar */
+.navbar-brand {
+    font-family: "TimeWize", 'Bauhaus 93';
+    font-size: 32px;
+}
