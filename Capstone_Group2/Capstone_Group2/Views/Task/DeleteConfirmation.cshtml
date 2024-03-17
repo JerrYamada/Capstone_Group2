@@ -1,4 +1,4 @@
-﻿@model TaskCreateModel
+﻿@model TimetableTask
 
 @{
     ViewData["Title"] = "Delete Task Confirmation";
@@ -6,12 +6,12 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<p>Are you sure you want to delete the following task? @Model.TaskName (Due Date: @Model.DueDate.ToString("d"))</p>
+<p>Are you sure you want to delete the following task? 
+    <br></br>
+    @Model.TaskName (Due Date: @Model.End_Date.ToString()</p>
 
-<form asp-controller="Task" asp-action="ProcessDeleteRequestById" asp-route-id="@Model.DueDate" method="post" enctype="application/x-www-form-urlencoded">
-    <input type="hidden" asp-for="DueDate" />
-    <button type="submit" class="btn btn-danger">Confirm Delete</button>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a>
+<form asp-controller="Task" asp-action="ProcessDeleteRequestById" asp-route-id="@Model.TaskId" method="post" enctype="application/x-www-form-urlencoded">
+    <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+    <a asp-controller="Task" asp-action="GetAllTasks" class="btn btn-secondary">Cancel</a>
 </form>
 
-@* CHANGE WILL BE NEEDED TO DELETE BY ID. USING Model.DueDate right now for route to remove error*@

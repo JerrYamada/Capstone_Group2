@@ -10,9 +10,9 @@
         Select Task Type
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="#" data-task-type="1">School</a></li>
-        <li><a class="dropdown-item" href="#" data-task-type="2">Work</a></li>
-        <li><a class="dropdown-item" href="#" data-task-type="3">Personal</a></li>
+        <li><a asp-controller="Task" asp-action="GetTaskByCategory" class="dropdown-item"  asp-route-categoryId="1">School</a></li>
+        <li><a asp-controller="Task" asp-action="GetTaskByCategory" class="dropdown-item"  asp-route-categoryId="2">Work</a></li>
+        <li><a asp-controller="Task" asp-action="GetTaskByCategory" class="dropdown-item"  asp-route-categoryId="3">Personal</a></li>
     </ul>
 </div>
 <div class="container mt-5">
@@ -41,9 +41,11 @@
                     <td>@task.Status.StatusName</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-primary">Edit</button>
-                            <button type="button" class="btn btn-primary">Delete</button>
-                            <button type="button" class="btn btn-primary">Details</button>
+                            <a class="btn btn-primary" asp-controller="Task" asp-action="GetEditRequestById" asp-route-id="@task.TaskId">Edit</a>
+                            <span class="mx-1">|</span>
+                            <a class="btn btn-primary"  asp-controller="Task" asp-action="GetDeleteRequestById" asp-route-id="@task.TaskId">Delete</a>
+                            <span class="mx-1">|</span>
+                            <a class="btn btn-primary"  asp-controller="Task" asp-action="GetTaskById" asp-route-id="@task.TaskId">Details</a>
                         </div>
                     </td>
                 </tr>

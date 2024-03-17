@@ -1,5 +1,10 @@
 ﻿
 /* styles for login/register page */
+
+.logo {
+    margin-left: 7em;
+    padding-top: 1em;
+}
 .login-area {
     background-color: white;
     padding: 40px;
@@ -33,7 +38,7 @@
 }
 .description-area h1 {
     padding-left: 3em;
-    padding-top: 4em;
+    padding-top: 3em;
     
 }
 .description-area p {

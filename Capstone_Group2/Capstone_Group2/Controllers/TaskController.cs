@@ -21,7 +21,7 @@ namespace Capstone_Group2.Controllers
         public IActionResult HomePage() 
         {
             var tasks = _taskDbContext.Tasks
-                .OrderByDescending(t => t.End_Date)
+                .OrderBy(t => t.End_Date)
                 .Take(3)
                 .ToList();
 
@@ -122,39 +122,65 @@ namespace Capstone_Group2.Controllers
 
         // GET TASK BY ID
 
-        [HttpGet("/tasks/get-task")]
+        [HttpGet("/tasks/{id}/task-details")]
         public IActionResult GetTaskById(int Id)
         {
             var task = _taskDbContext.Tasks
-                .Include(t => t.TaskName)
-                .Include(t => t.TaskDescription)
-                .Include(t => t.TaskId)
-                .Include(t => t.Start_Date)
-                .Include(t => t.End_Date)
-                .Include(t => t.StatusId)
-                .Include(t => t.CategoryId)
                 .Where(t => t.TaskId == Id)
                 .FirstOrDefault();
 
-            return View("Tasks", task); // return need to be changed later
+            return View("TaskDetails", task); // return need to be changed later
         }
 
         // GET TASK BY CATEGORY
 
-        [HttpGet("/tasks/category")]
+        [HttpGet("/tasks/{categoryId}")]
         public IActionResult GetTaskByCategory(int categoryId)
         {
-            var task = _taskDbContext.Tasks
-                .Include(t => t.TaskName)
-                .Include(t => t.TaskDescription)
-                .Include(t => t.TaskId)
-                .Include(t => t.Start_Date)
-                .Include(t => t.End_Date)
-                .Include(t => t.StatusId)
-                .Include(t => t.CategoryId)
-                .Where(t => t.CategoryId == categoryId);
+            var tasks = _taskDbContext.Tasks
+                .Where(t => t.CategoryId == categoryId)
+                .ToList();
 
-            return View("Index", task); 
+            var categories = _taskDbContext.Categories
+                .ToList();
+
+            var statuses = _taskDbContext.Statuses
+                .ToList();
+
+            var tm = new List<TaskViewModel>();
+            //add each task to the List of TaskViewModel
+            foreach (var task in tasks)
+            {
+                TaskViewModel temptm = new TaskViewModel();
+                temptm.TaskId = task.TaskId;
+                temptm.TaskName = task.TaskName;
+                temptm.TaskDescription = task.TaskDescription;
+                temptm.Start_Date = task.Start_Date;
+                temptm.End_Date = task.End_Date;
+                //get the category name
+                foreach (var category in categories)
+                {
+                    if (task.CategoryId == category.CategoryId)
+                    {
+                        temptm.Category = category;
+                    }
+                }
+                //get the status name
+                foreach (var status in statuses)
+                {
+                    if (task.StatusId == status.StatusId)
+                    {
+                        temptm.Status = status;
+                    }
+                }
+
+                //add the TaskViewModel to the list
+                tm.Add(temptm);
+
+            }
+
+
+            return View("Tasks", tm); 
         }
 
         // CREATE NEW TASK
@@ -204,7 +230,7 @@ namespace Capstone_Group2.Controllers
         public IActionResult GetEditRequestById(int id)
         {
             var task = _taskDbContext.Tasks.Find(id);
-            return View("EditTask", task);
+            return View("Edit", task);
         }
 
         [HttpPost("/projects/edit-requests")]
@@ -213,14 +239,16 @@ namespace Capstone_Group2.Controllers
         {
             if (ModelState.IsValid)
             {
+                //This edit method creates a new row.
+                //Not yet fixed, need to work on it.
                 _taskDbContext.Tasks.Update(task);
                 _taskDbContext.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("GetAllTasks", "Task");
             }
             else
             {
-                return View("EditTask", task);
+                return View("Edit", task);
             }
         }
 
@@ -231,7 +259,7 @@ namespace Capstone_Group2.Controllers
         public IActionResult GetDeleteRequestById(int id)
         {
             var task = _taskDbContext.Tasks.Find(id);
-            return View("DeleteTask", task);
+            return View("DeleteConfirmation", task);
         }
 
         [HttpPost("/tasks/{id}/delete-requests")]
@@ -243,7 +271,7 @@ namespace Capstone_Group2.Controllers
             _taskDbContext.Tasks.Remove(task);
             _taskDbContext.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("GetAllTasks", "Task");
         }
 
 

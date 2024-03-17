@@ -11,6 +11,9 @@ namespace Capstone_Group2.Models
         [Required(ErrorMessage = "Please enter the Task Type.")]
         
         public int TaskType { get; set; }
+        public int PriorityType { get; set; }
+        public int StatusType { get; set; }
+        public int TimetableId { get; set; }
 
         [Required(ErrorMessage = "Please enter the Task Description.")]
         [StringLength(255)]
