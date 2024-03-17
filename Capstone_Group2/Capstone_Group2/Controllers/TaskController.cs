@@ -206,6 +206,7 @@ namespace Capstone_Group2.Controllers
                     TaskDescription = taskModel.TaskDescription,
                     Start_Date = taskModel.StartDate,
                     End_Date = taskModel.DueDate,
+                    StatusId = taskModel.StatusType
                 };
 
                 _taskDbContext.Tasks.Add(newTask);

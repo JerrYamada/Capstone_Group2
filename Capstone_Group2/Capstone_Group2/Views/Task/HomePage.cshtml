@@ -9,6 +9,7 @@
 
 <div class="container mt-5">
     <h1>Tasks due soon</h1>
+    <a asp-action="GetAllTasks" asp-controller="Task">Go to the Task Page</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -18,7 +19,6 @@
                 <th>Start Date</th>
                 <th>Due Date</th>
                 <th>Status</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -31,13 +31,6 @@
                     <td>@task.Start_Date.ToString()</td>
                     <td>@task.End_Date.ToString()</td>
                     <td>@task.Status.StatusName</td>
-                    <td>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-primary">Edit</button>
-                            <button type="button" class="btn btn-primary">Delete</button>
-                            <button type="button" class="btn btn-primary">Details</button>
-                        </div>
-                    </td>
                 </tr>
 
             }
