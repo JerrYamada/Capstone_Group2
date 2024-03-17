@@ -22,15 +22,25 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>School</td>
-                <td>A02</td>
-                <td>Assignment 2 PROG1234</td>
-                <td>2024-1-22</td>
-                <td>2024-2-12</td>
-                <td>Finished</td>
-                <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
-            </tr>
+            @foreach (var task in Model)
+            {
+                    <tr>
+                        <td>@task.Category.CategoryName</td>
+                        <td>@task.TaskName</td>
+                        <td>@task.TaskDescription</td>
+                        <td>@task.Start_Date.ToString()</td>
+                        <td>@task.End_Date.ToString()</td>
+                        <td>@task.Status.StatusName</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-primary">Edit</button>
+                                <button type="button" class="btn btn-primary">Delete</button>
+                                <button type="button" class="btn btn-primary">Details</button>
+                            </div>
+                        </td>
+                    </tr>
+
+            }
             <!-- Add more rows as needed -->
         </tbody>
     </table>

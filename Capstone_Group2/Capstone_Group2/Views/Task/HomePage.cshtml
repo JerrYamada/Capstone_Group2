@@ -1,21 +1,14 @@
 ﻿@model List<TaskViewModel>
 @{
-    ViewData["Title"] = "Current Tasks List";
+    ViewData["Title"] = "Home Page";
 }
 
-<h1>@ViewData["Title"]</h1>
-<br>
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-        Select Task Type
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="#" data-task-type="1">School</a></li>
-        <li><a class="dropdown-item" href="#" data-task-type="2">Work</a></li>
-        <li><a class="dropdown-item" href="#" data-task-type="3">Personal</a></li>
-    </ul>
+<div class="text-center">
+    <h1 class="display-4">Welcome to Timewize</h1>
 </div>
+
 <div class="container mt-5">
+    <h1>This Week's Tasks</h1>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -26,7 +19,6 @@
                 <th>Due Date</th>
                 <th>Status</th>
                 <th>Action</th>
-
             </tr>
         </thead>
         <tbody>
@@ -47,9 +39,9 @@
                         </div>
                     </td>
                 </tr>
-                
+
             }
-            
+            <!-- Add more rows as needed -->
         </tbody>
     </table>
 </div>

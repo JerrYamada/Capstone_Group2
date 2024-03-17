@@ -15,7 +15,7 @@ namespace Capstone_Group2.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("HomePage","Task");
         }
 
         public IActionResult About()

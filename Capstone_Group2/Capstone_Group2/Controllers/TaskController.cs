@@ -16,8 +16,61 @@ namespace Capstone_Group2.Controllers
             _taskDbContext = taskDbContext;
         }
 
-        // GET ALL TASKS
 
+        //Go to the Home Page
+        public IActionResult HomePage() 
+        {
+            var tasks = _taskDbContext.Tasks
+                .OrderByDescending(t => t.End_Date)
+                .Take(3)
+                .ToList();
+
+            var categories = _taskDbContext.Categories
+                .ToList();
+
+            var statuses = _taskDbContext.Statuses
+                .ToList();
+
+            var tm = new List<TaskViewModel>();
+
+            //add each task to the List of TaskViewModel
+            foreach (var task in tasks)
+            {
+                TaskViewModel temptm = new TaskViewModel();
+                temptm.TaskId = task.TaskId;
+                temptm.TaskName = task.TaskName;
+                temptm.TaskDescription = task.TaskDescription;
+                temptm.Start_Date = task.Start_Date;
+                temptm.End_Date = task.End_Date;
+                //get the category name
+                foreach (var category in categories)
+                {
+                    if (task.CategoryId == category.CategoryId)
+                    {
+                        temptm.Category = category;
+                    }
+                }
+                //get the status name
+                foreach (var status in statuses)
+                {
+                    if (task.StatusId == status.StatusId)
+                    {
+                        temptm.Status = status;
+                    }
+                }
+
+                //add the TaskViewModel to the list
+                tm.Add(temptm);
+
+            }
+
+            return View("HomePage", tm);
+
+        }
+
+
+
+        // GET ALL TASKS
         [HttpGet("/tasks")]
         public IActionResult GetAllTasks()
         {
