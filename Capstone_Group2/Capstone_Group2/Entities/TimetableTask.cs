@@ -17,9 +17,9 @@ namespace Capstone_Group2.Entities
         public DateTime? End_Date { get; set; }
 
         //FK:
-        public int CategoryId { get; set; }
-        public int PriorityId { get; set; }
-        public int StatusId { get; set; }
-        public int TimetableId { get; set; }
+        public int CategoryId { get; set; } = 1;
+        public int PriorityId { get; set; } = 1;
+        public int StatusId { get; set; } = 1;
+        public int TimetableId { get; set; } = 1;
     }
 }
