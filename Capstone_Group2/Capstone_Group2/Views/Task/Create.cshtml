@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create A New Task";
 }
+
 <h1>@ViewData["Title"]</h1>
 
 <form asp-controller="Task" asp-action="CreateTask" method="post">
@@ -19,8 +20,6 @@
         <select asp-for="TaskType" class="form-control">
             <option value="1">School</option>
             <option value="2">Work</option>
-            @*The third category is not updated in the database, uncomment this when it got fixed*@
-            @*<option value="3">Personal</option>*@
         </select>
         <span asp-validation-for="TaskType" class="text-danger"></span>
     </div>
@@ -46,9 +45,10 @@
     <div class="form-group">
         <label asp-for="PriorityType">Priority Type</label>
         <select asp-for="PriorityType" class="form-control">
-            <option value="1">Low</option>
-            <option value="2">Medium</option>
-            <option value="3">High</option>
+            @foreach (var priority in ViewBag.Priorities)
+            {
+                <option value="@priority.PriorityId">@priority.PriorityType</option>
+            }
         </select>
         <span asp-validation-for="PriorityType" class="text-danger"></span>
     </div>
@@ -63,11 +63,8 @@
         <span asp-validation-for="StatusType" class="text-danger"></span>
     </div>
 
-    <input type="hidden" asp-for="TimetableId"/>
-
+    <input type="hidden" asp-for="TimetableId" />
 
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-controller="Task" asp-action="GetAllTasks" class="btn btn-primary">Cancel</a>
-
-    
 </form>

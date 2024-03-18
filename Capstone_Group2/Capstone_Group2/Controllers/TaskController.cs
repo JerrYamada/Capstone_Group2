@@ -4,6 +4,7 @@ using Capstone_Group2.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Capstone_Group2.Controllers
 {
@@ -189,9 +190,10 @@ namespace Capstone_Group2.Controllers
         [Authorize]
         public IActionResult GetAddTaskRequest()
         {
+            var priorities = _taskDbContext.Priorities.ToList(); // Retrieve priorities from the database
+            ViewBag.Priorities = priorities;
             return View("Create", new TaskCreateModel());
         }
-       
 
         [HttpPost("/tasks/add-requests")]
         [Authorize]
@@ -206,20 +208,18 @@ namespace Capstone_Group2.Controllers
                     TaskDescription = taskModel.TaskDescription,
                     Start_Date = taskModel.StartDate,
                     End_Date = taskModel.DueDate,
-                    StatusId = taskModel.StatusType
+                    StatusId = taskModel.StatusType,
+                    PriorityId = taskModel.PriorityType // Assign Priority Type from model
                 };
 
                 _taskDbContext.Tasks.Add(newTask);
                 _taskDbContext.SaveChanges();
 
-
                 return RedirectToAction("GetAllTasks", "Task");
-
             }
             else
             {
                 return View("Create", taskModel);
-
             }
         }
 

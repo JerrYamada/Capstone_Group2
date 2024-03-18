@@ -1,7 +1,8 @@
-﻿using Capstone_Group2.Models;
+﻿using Capstone_Group2.DataAccess;
 using Microsoft.AspNetCore.Mvc;
-using Capstone_Group2.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 namespace Capstone_Group2.Controllers
 {
@@ -23,35 +24,23 @@ namespace Capstone_Group2.Controllers
         public IActionResult GetEvents()
         {
             var tasks = _dbContext.Tasks
-                .Include(t => t.PriorityId) // Include Priority navigation property
-                .ToList(); // Fetch tasks from the database
+                .Include(t => t.Priority)
+                .Include(t => t.Category)
+                .Include(t => t.Status)
+                .ToList();
 
-            // Map tasks to FullCalendar event objects
             var events = tasks.Select(task => new
             {
+                id = task.TaskId,
                 title = task.TaskName,
-                start = task.Start_Date,
-                end = task.End_Date,
-                color = GetPriorityColor(task.PriorityId) // Get color based on priority ID
+                start = task.Start_Date.HasValue ? task.Start_Date.Value.ToString("yyyy-MM-ddTHH:mm:ss") : null,
+                end = task.End_Date.HasValue ? task.End_Date.Value.ToString("yyyy-MM-ddTHH:mm:ss") : null,
+                category = task.Category?.CategoryName,
+                status = task.Status?.StatusName,
+                priority = task.Priority?.PriorityType
             });
 
             return Json(events);
-        }
-
-        // Helper method to get color based on priority ID
-        private string GetPriorityColor(int priorityId)
-        {
-            switch (priorityId)
-            {
-                case 1:
-                    return "#5F9EA0"; // Light blue for priority ID 1
-                case 2:
-                    return "#FFA500"; // Orange for priority ID 2
-                case 3:
-                    return "#4169E1"; // Red for priority ID 3
-                default:
-                    return ""; // Default color
-            }
         }
     }
 }
