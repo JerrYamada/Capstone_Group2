@@ -37,10 +37,11 @@ namespace Capstone_Group2.Controllers
                 end = task.End_Date.HasValue ? task.End_Date.Value.ToString("yyyy-MM-ddTHH:mm:ss") : null,
                 category = task.Category?.CategoryName,
                 status = task.Status?.StatusName,
-                priority = task.Priority?.PriorityType
+                priorityId = task.Priority?.PriorityId
             });
 
             return Json(events);
         }
+
     }
 }

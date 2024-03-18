@@ -1,23 +1,20 @@
-﻿@model List<dynamic> // Assuming you're returning a list of dynamic objects from GetEvents
+﻿@model List<dynamic>
 
 @{
     ViewData["Title"] = "Calendar";
 }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.global.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.global.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.js"></script>
-
 <h2>Weekly Calendar</h2>
 
 <div id="calendar"></div>
 
-<!-- Frontend (Calendar View) -->
 @section Scripts {
-    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.global.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.11/index.js"></script>
 
-    <script>
+    <script type="module">
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -31,22 +28,25 @@
                         html: '<b>' + arg.event.title + '</b>: ' +
                             arg.event.extendedProps.category + '<br/>' +
                             arg.event.extendedProps.status,
-                        classNames: [getBackgroundColorClass(arg.event.extendedProps.priority)]
                     };
+                },
+                eventDidMount: function (info) {
+                    var priorityColor;
+                    switch (info.event.extendedProps.priorityId) {
+                        case 1: // Low
+                            priorityColor = 'blue';
+                            break;
+                        case 2: // Medium
+                            priorityColor = 'orange';
+                            break;
+                        case 3: // High
+                            priorityColor = 'crimson';
+                            break;
+                    }
+                    info.el.style.backgroundColor = priorityColor;
                 }
             });
             calendar.render();
         });
-
-        function getBackgroundColorClass(priority) {
-            switch (priority) {
-                case 'Low':
-                    return 'fc-event.low-priority';
-                case 'Medium':
-                    return 'fc-event.medium-priority';
-                case 'High':
-                    return 'fc-event.high-priority';
-            }
-        }
     </script>
 }
