@@ -19,7 +19,7 @@ namespace Capstone_Group2.Controllers
 
 
         //Go to the Home Page
-        public IActionResult HomePage() 
+        public IActionResult HomePage()
         {
             var tasks = _taskDbContext.Tasks
                 .OrderBy(t => t.End_Date)
@@ -30,6 +30,9 @@ namespace Capstone_Group2.Controllers
                 .ToList();
 
             var statuses = _taskDbContext.Statuses
+                .ToList();
+
+            var priorities = _taskDbContext.Priorities
                 .ToList();
 
             var tm = new List<TaskViewModel>();
@@ -60,6 +63,15 @@ namespace Capstone_Group2.Controllers
                     }
                 }
 
+                //get the priority type
+                foreach (var priority in priorities)
+                {
+                    if (task.PriorityId == priority.PriorityId)
+                    {
+                        temptm.Priority = priority;
+                    }
+                }
+
                 //add the TaskViewModel to the list
                 tm.Add(temptm);
 
@@ -85,30 +97,42 @@ namespace Capstone_Group2.Controllers
             var statuses = _taskDbContext.Statuses
                 .ToList();
 
+            var priorities = _taskDbContext.Priorities
+                .ToList();
+
             var tm = new List<TaskViewModel>();
             //add each task to the List of TaskViewModel
-            foreach (var task in tasks) 
+            foreach (var task in tasks)
             {
                 TaskViewModel temptm = new TaskViewModel();
                 temptm.TaskId = task.TaskId;
                 temptm.TaskName = task.TaskName;
-                temptm.TaskDescription= task.TaskDescription;
+                temptm.TaskDescription = task.TaskDescription;
                 temptm.Start_Date = task.Start_Date;
-                temptm.End_Date= task.End_Date;
+                temptm.End_Date = task.End_Date;
                 //get the category name
-                foreach (var category in categories) 
+                foreach (var category in categories)
                 {
-                    if (task.CategoryId == category.CategoryId) 
+                    if (task.CategoryId == category.CategoryId)
                     {
                         temptm.Category = category;
                     }
                 }
                 //get the status name
-                foreach (var status in statuses) 
+                foreach (var status in statuses)
                 {
                     if (task.StatusId == status.StatusId)
                     {
-                        temptm.Status= status;
+                        temptm.Status = status;
+                    }
+                }
+
+                //get the priority type
+                foreach (var priority in priorities)
+                {
+                    if (task.PriorityId == priority.PriorityId)
+                    {
+                        temptm.Priority = priority;
                     }
                 }
 
@@ -116,7 +140,7 @@ namespace Capstone_Group2.Controllers
                 tm.Add(temptm);
 
             }
-            
+
 
             return View("Tasks", tm);
         }
@@ -148,6 +172,9 @@ namespace Capstone_Group2.Controllers
             var statuses = _taskDbContext.Statuses
                 .ToList();
 
+            var priorities = _taskDbContext.Priorities
+               .ToList();
+
             var tm = new List<TaskViewModel>();
             //add each task to the List of TaskViewModel
             foreach (var task in tasks)
@@ -175,13 +202,22 @@ namespace Capstone_Group2.Controllers
                     }
                 }
 
+                //get the priority type
+                foreach (var priority in priorities)
+                {
+                    if (task.PriorityId == priority.PriorityId)
+                    {
+                        temptm.Priority = priority;
+                    }
+                }
+
                 //add the TaskViewModel to the list
                 tm.Add(temptm);
 
             }
 
 
-            return View("Tasks", tm); 
+            return View("Tasks", tm);
         }
 
         // CREATE NEW TASK
@@ -274,7 +310,5 @@ namespace Capstone_Group2.Controllers
 
             return RedirectToAction("GetAllTasks", "Task");
         }
-
-
     }
 }
