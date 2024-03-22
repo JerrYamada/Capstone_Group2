@@ -1,4 +1,6 @@
 ﻿@model List<TaskViewModel>
+@using Capstone_Group2.Entities;
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -24,17 +26,35 @@
         <tbody>
             @foreach (var task in Model)
             {
-                <tr>
-                    <td>@task.Category.CategoryName</td>
-                    <td>@task.TaskName</td>
-                    <td>@task.TaskDescription</td>
-                    <td>@task.Start_Date.ToString()</td>
-                    <td>@task.End_Date.ToString()</td>
-                    <td>@task.Status.StatusName</td>
-                </tr>
+                string priorityColor = "";
 
+                if (task != null && task.Priority != null)
+                {
+                    int priorityId = task.Priority.PriorityId;
+
+                    if (priorityId == 1)
+                    {
+                        priorityColor = "blue";
+                    }
+                    else if (priorityId == 2)
+                    {
+                        priorityColor = "orange";
+                    }
+                    else if (priorityId == 3)
+                    {
+                        priorityColor = "crimson";
+                    }
+                }
+
+                <tr style="background-color: @priorityColor">
+                    <td>@(task?.Category?.CategoryName)</td>
+                    <td>@(task?.TaskName)</td>
+                    <td>@(task?.TaskDescription)</td>
+                    <td>@(task?.Start_Date.ToString())</td>
+                    <td>@(task?.End_Date.ToString())</td>
+                    <td>@(task?.Status?.StatusName)</td>
+                </tr>
             }
-            <!-- Add more rows as needed -->
         </tbody>
     </table>
 </div>

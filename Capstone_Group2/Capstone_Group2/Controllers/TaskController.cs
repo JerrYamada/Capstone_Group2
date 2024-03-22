@@ -32,6 +32,9 @@ namespace Capstone_Group2.Controllers
             var statuses = _taskDbContext.Statuses
                 .ToList();
 
+            var priorities = _taskDbContext.Priorities
+                .ToList();
+
             var tm = new List<TaskViewModel>();
 
             //add each task to the List of TaskViewModel
@@ -60,6 +63,15 @@ namespace Capstone_Group2.Controllers
                     }
                 }
 
+                //get the priority type
+                foreach (var priority in priorities)
+                {
+                    if (task.PriorityId == priority.PriorityId)
+                    {
+                        temptm.Priority = priority;
+                    }
+                }
+
                 //add the TaskViewModel to the list
                 tm.Add(temptm);
 
@@ -83,6 +95,9 @@ namespace Capstone_Group2.Controllers
                 .ToList();
 
             var statuses = _taskDbContext.Statuses
+                .ToList();
+
+            var priorities = _taskDbContext.Priorities
                 .ToList();
 
             var tm = new List<TaskViewModel>();
@@ -109,6 +124,15 @@ namespace Capstone_Group2.Controllers
                     if (task.StatusId == status.StatusId)
                     {
                         temptm.Status= status;
+                    }
+                }
+
+                //get the priority type
+                foreach (var priority in priorities)
+                {
+                    if (task.PriorityId == priority.PriorityId)
+                    {
+                        temptm.Priority = priority;
                     }
                 }
 
@@ -148,6 +172,9 @@ namespace Capstone_Group2.Controllers
             var statuses = _taskDbContext.Statuses
                 .ToList();
 
+            var priorities = _taskDbContext.Priorities
+               .ToList();
+
             var tm = new List<TaskViewModel>();
             //add each task to the List of TaskViewModel
             foreach (var task in tasks)
@@ -172,6 +199,15 @@ namespace Capstone_Group2.Controllers
                     if (task.StatusId == status.StatusId)
                     {
                         temptm.Status = status;
+                    }
+                }
+
+                //get the priority type
+                foreach (var priority in priorities)
+                {
+                    if (task.PriorityId == priority.PriorityId)
+                    {
+                        temptm.Priority = priority;
                     }
                 }
 
