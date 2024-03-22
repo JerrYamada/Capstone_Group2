@@ -197,12 +197,6 @@ namespace Capstone_Group2.Migrations
 
                     b.HasKey("TaskId");
 
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("PriorityId");
-
-                    b.HasIndex("StatusId");
-
                     b.ToTable("Tasks");
 
                     b.HasData(
@@ -419,33 +413,6 @@ namespace Capstone_Group2.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Capstone_Group2.Entities.TimetableTask", b =>
-                {
-                    b.HasOne("Capstone_Group2.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Capstone_Group2.Entities.Priority", "Priority")
-                        .WithMany()
-                        .HasForeignKey("PriorityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Capstone_Group2.Entities.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Priority");
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
