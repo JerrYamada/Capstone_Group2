@@ -3,110 +3,98 @@
 @{
     ViewData["Title"] = "Task Details";
 }
-<h1>@ViewData["Title"]</h1>
 
-<method="post" enctype="application/x-www-form-urlencoded">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="task-details-container">
+    <a asp-controller="Task" asp-action="GetAllTasks" class="btn-secondary btn-back">Back to Tasks</a>
 
-    <div class="form-group">
-        <label asp-for="TaskName"></label>
-        <input asp-for="TaskName" class="form-control" disabled/>
-        <span asp-validation-for="TaskName" class="text-danger"></span>
+    <h1>@ViewData["Title"]</h1>
+
+    <div class="detail-row">
+        <div class="detail-label">Task Name:</div>
+        <div class="detail-value">@Model.TaskName</div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="CategoryId">Task Category</label>
-        <select asp-for="CategoryId" class="form-control" disabled>
-            @if (Model.CategoryId == 1)
-            {
-                <option value="1" selected>School</option>
-                <option value="2">Work</option>
-
+    <div class="detail-row">
+        <div class="detail-label">Task Category:</div>
+        <div class="detail-value">
+            @{
+                if (Model.CategoryId == 1)
+                {
+                    <span>School</span>
+                    ;
+                }
+                else if (Model.CategoryId == 2)
+                {
+                    <span>Work</span>
+                    ;
+                }
+                else
+                {
+                    <span>Personal</span>
+                    ;
+                }
             }
-            else if (Model.CategoryId == 2)
-            {
-                <option value="1">School</option>
-                <option value="2" selected>Work</option>
-            }
-            @*The third category is not updated in the database, uncomment this when it got fixed*@
-            @*<option value="3">Personal</option>*@
-        </select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="TaskDescription"></label>
-        <input asp-for="TaskDescription" class="form-control" disabled/>
-        <span asp-validation-for="TaskDescription" class="text-danger"></span>
+    <div class="detail-row">
+        <div class="detail-label">Task Description:</div>
+        <div class="detail-value">@Model.TaskDescription</div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Start_Date"></label>
-        <input asp-for="Start_Date" type="datetime-local" class="form-control" disabled />
-        <span asp-validation-for="Start_Date" class="text-danger"></span>
+    <div class="detail-row">
+        <div class="detail-label">Start Date:</div>
+        <div class="detail-value">@Model.Start_Date.ToString()</div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="End_Date"></label>
-        <input asp-for="End_Date" type="datetime-local" class="form-control" disabled />
-        <span asp-validation-for="End_Date" class="text-danger"></span>
+    <div class="detail-row">
+        <div class="detail-label">End Date:</div>
+        <div class="detail-value">@Model.End_Date.ToString()</div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="PriorityId">Priority Type</label>
-        <select asp-for="PriorityId" class="form-control" disabled>
-            @if (Model.PriorityId == 1)
-            {
-                <option value="1" selected>Low</option>
-                <option value="2">Medium</option>
-                <option value="3">High</option>
+    <div class="detail-row">
+        <div class="detail-label">Priority Type:</div>
+        <div class="detail-value">
+            @{
+                if (Model.PriorityId == 1)
+                {
+                    <span>Low</span>
+                    ;
+                }
+                else if (Model.PriorityId == 2)
+                {
+                    <span>Medium</span>
+                    ;
+                }
+                else
+                {
+                    <span>High</span>
+                    ;
+                }
             }
-            else if (Model.PriorityId == 2)
-            {
-                <option value="1">Low</option>
-                <option value="2" selected>Medium</option>
-                <option value="3">High</option>
-
-            }
-            else
-            {
-                <option value="1">Low</option>
-                <option value="2">Medium</option>
-                <option value="3" selected>High</option>
-
-            }
-        </select>
-        <span asp-validation-for="PriorityId" class="text-danger"></span>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label asp-for="StatusId">Status Type</label>
-        <select asp-for="StatusId" class="form-control" disabled>
-            @if (Model.StatusId == 1)
-            {
-                <option value="1" selected>Not Done</option>
-                <option value="2">Due Soon</option>
-                <option value="3">Finished</option>
+    <div class="detail-row">
+        <div class="detail-label">Status Type:</div>
+        <div class="detail-value">
+            @{
+                if (Model.StatusId == 1)
+                {
+                    <span>Not Done</span>
+                    ;
+                }
+                else if (Model.StatusId == 2)
+                {
+                    <span>Due Soon</span>
+                    ;
+                }
+                else
+                {
+                    <span>Finished</span>
+                    ;
+                }
             }
-            else if (Model.StatusId == 2)
-            {
-                <option value="1">Not Done</option>
-                <option value="2" selected>Due Soon</option>
-                <option value="3">Finished</option>
-
-            }
-            else
-            {
-                <option value="1">Not Done</option>
-                <option value="2">Due Soon</option>
-                <option value="3" selected>Finished</option>
-
-            }
-        </select>
-        <span asp-validation-for="StatusId" class="text-danger"></span>
+        </div>
     </div>
-
-    <input type="hidden" asp-for="TimetableId" disabled/>
-
-
-</>
+</div>
