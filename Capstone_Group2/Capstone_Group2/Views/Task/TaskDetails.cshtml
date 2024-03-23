@@ -2,10 +2,12 @@
 
 @{
     ViewData["Title"] = "Task Details";
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 }
 
 <div class="task-details-container">
-    <a asp-controller="Task" asp-action="GetAllTasks" class="btn-secondary btn-back">Back to Tasks</a>
+    <a asp-controller="Task" asp-action="GetAllTasks" class="btn-secondary btn-back"><i class="fas fa-arrow-left"></i> Back to Tasks</a>
 
     <h1>@ViewData["Title"]</h1>
 

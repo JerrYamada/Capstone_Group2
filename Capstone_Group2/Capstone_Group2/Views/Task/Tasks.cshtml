@@ -5,6 +5,9 @@
 
 <h1>@ViewData["Title"]</h1>
 <br>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
 <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
         Select Task Type
@@ -39,13 +42,13 @@
                     <td>@task.Start_Date.ToString()</td>
                     <td>@task.End_Date.ToString()</td>
                     <td>@task.Status.StatusName</td>
-                    <td>
+                    <td style="text-align: center">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-primary" asp-controller="Task" asp-action="GetEditRequestById" asp-route-id="@task.TaskId">Edit</a>
+                            <a class="btn btn-primary" asp-controller="Task" asp-action="GetEditRequestById" asp-route-id="@task.TaskId"><i class="fas fa-edit"></i></a>
                             <span class="mx-1">|</span>
-                            <a class="btn btn-primary"  asp-controller="Task" asp-action="GetDeleteRequestById" asp-route-id="@task.TaskId">Delete</a>
+                            <a class="btn btn-primary" asp-controller="Task" asp-action="GetDeleteRequestById" asp-route-id="@task.TaskId"><i class="fas fa-trash-alt"></i></a>
                             <span class="mx-1">|</span>
-                            <a class="btn btn-primary"  asp-controller="Task" asp-action="GetTaskById" asp-route-id="@task.TaskId">Details</a>
+                            <a class="btn btn-primary" asp-controller="Task" asp-action="GetTaskById" asp-route-id="@task.TaskId"><i class="fas fa-info-circle"></i></a>
                         </div>
                     </td>
                 </tr>
