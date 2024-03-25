@@ -44,7 +44,7 @@
                     <td>@task.Status.StatusName</td>
                     <td style="text-align: center">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-primary" asp-controller="Task" asp-action="GetEditRequestById" asp-route-id="@task.TaskId"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-primary" asp-controller="Task" asp-action="GetEditRequestById" asp-route-TaskId="@task.TaskId"><i class="fas fa-edit"></i></a>
                             <span class="mx-1">|</span>
                             <a class="btn btn-primary" asp-controller="Task" asp-action="GetDeleteRequestById" asp-route-id="@task.TaskId"><i class="fas fa-trash-alt"></i></a>
                             <span class="mx-1">|</span>
@@ -52,7 +52,6 @@
                         </div>
                     </td>
                 </tr>
-                
             }
             
         </tbody>

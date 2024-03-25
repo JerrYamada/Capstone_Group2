@@ -3,6 +3,7 @@ using Capstone_Group2.Entities;
 using Capstone_Group2.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -262,32 +263,42 @@ namespace Capstone_Group2.Controllers
 
         // EDIT TASK BY ID
 
-        [HttpGet("/tasks/{id}/edit-request")]
+        [HttpGet("/tasks/{TaskId}/edit-request")]
         [Authorize]
-        public IActionResult GetEditRequestById(int id)
+        public IActionResult GetEditRequestById(int TaskId)
         {
-            var task = _taskDbContext.Tasks.Find(id);
-            return View("Edit", task);
+            var task = _taskDbContext.Tasks.Find(TaskId);
+            if (task == null)
+            {
+                return NotFound();
+            }
+            return View("EditTask", task);
         }
 
-        [HttpPost("/projects/edit-requests")]
+        [HttpPost("/tasks/{TaskId}/edit-requests")]
         [Authorize]
-        public IActionResult ProcessEditRequest(TimetableTask task)
+        public IActionResult ProcessEditRequestById(int TaskId, TimetableTask task) //Id wasn't working so i use TaskId
         {
             if (ModelState.IsValid)
             {
-                //This edit method creates a new row.
-                //Not yet fixed, need to work on it.
-                _taskDbContext.Tasks.Update(task);
+                var existingTask = _taskDbContext.Tasks.Find(TaskId);
+                if (existingTask == null)
+                {
+                    return NotFound();
+                }
+                existingTask.TaskName = task.TaskName;
+                existingTask.TaskDescription = task.TaskDescription;
+                existingTask.Start_Date = task.Start_Date;
+                existingTask.End_Date = task.End_Date;
+                existingTask.CategoryId = task.CategoryId;
+                existingTask.PriorityId = task.PriorityId;
+                existingTask.StatusId = task.StatusId;
                 _taskDbContext.SaveChanges();
-
                 return RedirectToAction("GetAllTasks", "Task");
             }
-            else
-            {
-                return View("Edit", task);
-            }
+            return View("EditTask", task);
         }
+
 
         // DELETE TASK BY ID
 
