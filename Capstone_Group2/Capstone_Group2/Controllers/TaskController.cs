@@ -19,23 +19,87 @@ namespace Capstone_Group2.Controllers
         }
 
 
+        //Un comment this if you want to have the old Homepage functionality
+        ////Go to the Home Page
+        //public IActionResult HomePage()
+        //{
+        //    var tasks = _taskDbContext.Tasks
+        //        .OrderBy(t => t.End_Date)
+        //        .Take(3)
+        //        .ToList();
+
+        //    var categories = _taskDbContext.Categories
+        //        .ToList();
+
+        //    var statuses = _taskDbContext.Statuses
+        //        .ToList();
+
+        //    var priorities = _taskDbContext.Priorities
+        //        .ToList();
+
+        //    var tm = new List<TaskViewModel>();
+
+        //    //add each task to the List of TaskViewModel
+        //    foreach (var task in tasks)
+        //    {
+        //        TaskViewModel temptm = new TaskViewModel();
+        //        temptm.TaskId = task.TaskId;
+        //        temptm.TaskName = task.TaskName;
+        //        temptm.TaskDescription = task.TaskDescription;
+        //        temptm.Start_Date = task.Start_Date;
+        //        temptm.End_Date = task.End_Date;
+        //        //get the category name
+        //        foreach (var category in categories)
+        //        {
+        //            if (task.CategoryId == category.CategoryId)
+        //            {
+        //                temptm.Category = category;
+        //            }
+        //        }
+        //        //get the status name
+        //        foreach (var status in statuses)
+        //        {
+        //            if (task.StatusId == status.StatusId)
+        //            {
+        //                temptm.Status = status;
+        //            }
+        //        }
+
+        //        //get the priority type
+        //        foreach (var priority in priorities)
+        //        {
+        //            if (task.PriorityId == priority.PriorityId)
+        //            {
+        //                temptm.Priority = priority;
+        //            }
+        //        }
+
+        //        //add the TaskViewModel to the list
+        //        tm.Add(temptm);
+
+        //    }
+
+        //    return View("HomePage", tm);
+
+        //}
+
+        //Delete this if you want to use the old one
         //Go to the Home Page
         public IActionResult HomePage()
         {
+            // Get the start and end dates for the current week
+            var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+            var endOfWeek = startOfWeek.AddDays(7).AddSeconds(-1);
+
             var tasks = _taskDbContext.Tasks
+                .Where(t => t.Start_Date >= startOfWeek && t.End_Date <= endOfWeek) // Filter tasks for the current week
                 .OrderBy(t => t.End_Date)
                 .Take(3)
                 .ToList();
 
-            var categories = _taskDbContext.Categories
-                .ToList();
-
-            var statuses = _taskDbContext.Statuses
-                .ToList();
-
-            var priorities = _taskDbContext.Priorities
-                .ToList();
-
+            var categories = _taskDbContext.Categories.ToList();
+            var statuses = _taskDbContext.Statuses.ToList();
+            var priorities = _taskDbContext.Priorities.ToList();
             var tm = new List<TaskViewModel>();
 
             //add each task to the List of TaskViewModel
@@ -53,6 +117,7 @@ namespace Capstone_Group2.Controllers
                     if (task.CategoryId == category.CategoryId)
                     {
                         temptm.Category = category;
+                        break;
                     }
                 }
                 //get the status name
@@ -61,6 +126,7 @@ namespace Capstone_Group2.Controllers
                     if (task.StatusId == status.StatusId)
                     {
                         temptm.Status = status;
+                        break;
                     }
                 }
 
@@ -70,18 +136,14 @@ namespace Capstone_Group2.Controllers
                     if (task.PriorityId == priority.PriorityId)
                     {
                         temptm.Priority = priority;
+                        break;
                     }
                 }
-
-                //add the TaskViewModel to the list
                 tm.Add(temptm);
-
             }
 
             return View("HomePage", tm);
-
         }
-
 
 
         // GET ALL TASKS

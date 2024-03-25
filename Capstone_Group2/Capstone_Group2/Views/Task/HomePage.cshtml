@@ -5,12 +5,20 @@
     ViewData["Title"] = "Home Page";
 }
 
+@{
+    // Get the start and end dates for the current week
+    var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+    var endOfWeek = startOfWeek.AddDays(7).AddSeconds(-1);
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
 <div class="text-center">
     <h1 class="display-4">Welcome to Timewize</h1>
 </div>
 
 <div class="container mt-5">
-    <h1>Tasks due soon</h1>
+    <h3>This Week @(startOfWeek.ToString("MMM dd")) - @(endOfWeek.ToString("MMM dd")) Tasks</h3>
     <a asp-action="GetAllTasks" asp-controller="Task">Go to the Task Page</a>
     <table class="table table-bordered">
         <thead>
