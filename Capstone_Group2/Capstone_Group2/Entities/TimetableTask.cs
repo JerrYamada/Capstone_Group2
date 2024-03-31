@@ -16,7 +16,7 @@ public class TimetableTask
     public int CategoryId { get; set; }
     public int PriorityId { get; set; }
     public int StatusId { get; set; }
-    public string TimetableId { get; set; }
+    public string? TimetableId { get; set; }
 
     // Navigation properties
     public Category? Category { get; set; }

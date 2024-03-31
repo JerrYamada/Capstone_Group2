@@ -386,6 +386,8 @@ namespace Capstone_Group2.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.TimetableId = task.TimetableId;
             return View("EditTask", task);
         }
 
@@ -409,6 +411,14 @@ namespace Capstone_Group2.Controllers
                 existingTask.StatusId = task.StatusId;
                 _taskDbContext.SaveChanges();
                 return RedirectToAction("GetAllTasks", "Task");
+            }
+            else
+            {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    // Log or display the error messages
+                    Console.WriteLine(error.ErrorMessage);
+                }
             }
             return View("EditTask", task);
         }
