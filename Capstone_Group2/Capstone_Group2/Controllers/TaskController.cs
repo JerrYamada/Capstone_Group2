@@ -2,6 +2,7 @@
 using Capstone_Group2.Entities;
 using Capstone_Group2.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +13,11 @@ namespace Capstone_Group2.Controllers
     public class TaskController : Controller
     {
         private CapstoneDbContext _taskDbContext;
+        private readonly UserManager<User> _userManager;
 
-        public TaskController(CapstoneDbContext taskDbContext)
+        public TaskController(CapstoneDbContext taskDbContext, UserManager<User> userManager)
         {
+            _userManager = userManager;
             _taskDbContext = taskDbContext;
         }
 
@@ -85,14 +88,22 @@ namespace Capstone_Group2.Controllers
 
         //Delete this if you want to use the old one
         //Go to the Home Page
-        public IActionResult HomePage()
+        public async Task<IActionResult> HomePage()
         {
             // Get the start and end dates for the current week
             var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
             var endOfWeek = startOfWeek.AddDays(7).AddSeconds(-1);
 
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound(); // Handle the case where user is not found
+            }
+
+
             var tasks = _taskDbContext.Tasks
-                .Where(t => t.Start_Date >= startOfWeek && t.End_Date <= endOfWeek) // Filter tasks for the current week
+                .Where(t => t.Start_Date >= startOfWeek && t.End_Date <= endOfWeek && t.TimetableId == currentUser.Id) // Filter tasks for the current week
                 .OrderBy(t => t.End_Date)
                 .Take(3)
                 .ToList();
@@ -148,9 +159,16 @@ namespace Capstone_Group2.Controllers
 
         // GET ALL TASKS
         [HttpGet("/tasks")]
-        public IActionResult GetAllTasks()
+        public async Task<IActionResult> GetAllTasks()
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound(); // Handle the case where user is not found
+            }
+
             var tasks = _taskDbContext.Tasks
+                .Where(t => t.TimetableId.Equals(currentUser.Id))
                 .OrderByDescending(t => t.Start_Date)
                 .ToList();
 
@@ -211,10 +229,16 @@ namespace Capstone_Group2.Controllers
         // GET TASK BY ID
 
         [HttpGet("/tasks/{id}/task-details")]
-        public IActionResult GetTaskById(int Id)
+        public async Task<IActionResult> GetTaskById(int Id)
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound(); // Handle the case where user is not found
+            }
+
             var task = _taskDbContext.Tasks
-                .Where(t => t.TaskId == Id)
+                .Where(t => t.TaskId == Id && t.TimetableId == currentUser.Id)
                 .FirstOrDefault();
 
             return View("TaskDetails", task); // return need to be changed later
@@ -223,10 +247,16 @@ namespace Capstone_Group2.Controllers
         // GET TASK BY CATEGORY
 
         [HttpGet("/tasks/{categoryId}")]
-        public IActionResult GetTaskByCategory(int categoryId)
+        public async Task<IActionResult> GetTaskByCategory(int categoryId)
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound(); // Handle the case where user is not found
+            }
+
             var tasks = _taskDbContext.Tasks
-                .Where(t => t.CategoryId == categoryId)
+                .Where(t => t.CategoryId == categoryId && t.TimetableId == currentUser.Id)
                 .ToList();
 
             var categories = _taskDbContext.Categories
@@ -287,20 +317,33 @@ namespace Capstone_Group2.Controllers
 
         [HttpGet("/tasks/add-request")]
         [Authorize]
-        public IActionResult GetAddTaskRequest()
+        public async Task<IActionResult> GetAddTaskRequest()
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound(); // Handle the case where user is not found
+            }
+
             var priorities = _taskDbContext.Priorities.ToList(); // Retrieve priorities from the database
             ViewBag.Priorities = priorities;
+            ViewBag.TimetableId = currentUser.Id;
             return View("Create", new TaskCreateModel());
         }
 
         [HttpPost("/tasks/add-requests")]
         [Authorize]
-        public IActionResult CreateTask(TaskCreateModel taskModel)
+        public async Task<IActionResult> CreateTask(TaskCreateModel taskModel)
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return NotFound(); // Handle the case where user is not found
+            }
+
             if (ModelState.IsValid)
             {
-                var newTask = new TimetableTask()
+                var newTask = new TimetableTask
                 {
                     TaskName = taskModel.TaskName,
                     CategoryId = taskModel.TaskType,
@@ -308,7 +351,8 @@ namespace Capstone_Group2.Controllers
                     Start_Date = taskModel.StartDate,
                     End_Date = taskModel.DueDate,
                     StatusId = taskModel.StatusType,
-                    PriorityId = taskModel.PriorityType // Assign Priority Type from model
+                    PriorityId = taskModel.PriorityType, // Assign Priority Type from model
+                    TimetableId = currentUser.Id
                 };
 
                 _taskDbContext.Tasks.Add(newTask);
@@ -318,6 +362,14 @@ namespace Capstone_Group2.Controllers
             }
             else
             {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    // Log or display the error messages
+                    Console.WriteLine(error.ErrorMessage);
+                }
+
+                var priorities = _taskDbContext.Priorities.ToList(); // Retrieve priorities from the database
+                ViewBag.Priorities = priorities;
                 return View("Create", taskModel);
             }
         }

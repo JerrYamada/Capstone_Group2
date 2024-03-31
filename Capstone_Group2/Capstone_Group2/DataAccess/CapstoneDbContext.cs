@@ -69,11 +69,11 @@ namespace Capstone_Group2.DataAccess
                 new Status() { StatusId = 3, StatusName = "Finished" }
             );
             builder.Entity<Timetable>().HasData(
-                new Timetable() { TimetableId = 1, UserId = 1 }
+                new Timetable() { TimetableId = "1", UserId = "1" }
             );
 
             builder.Entity<TimetableTask>().HasData(
-                new TimetableTask() { TaskId = 1, TaskName="First Task", TaskDescription = "First Task", Start_Date = new DateTime(2024,2,10), End_Date = new DateTime(2024,2,20), TimetableId = 1, CategoryId =1, PriorityId = 1, StatusId = 1 }
+                new TimetableTask() { TaskId = 1, TaskName="First Task", TaskDescription = "First Task", Start_Date = new DateTime(2024,2,10), End_Date = new DateTime(2024,2,20), TimetableId = "1", CategoryId =1, PriorityId = 1, StatusId = 1 }
                 );
         }
 

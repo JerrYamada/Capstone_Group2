@@ -3,11 +3,11 @@
     public class Timetable
     {
 
-        public int TimetableId { get; set; }
+        public string TimetableId { get; set; }
 
 
         //FK
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
     }
 }

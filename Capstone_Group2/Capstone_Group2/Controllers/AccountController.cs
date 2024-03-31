@@ -1,7 +1,9 @@
-﻿using Capstone_Group2.Entities;
+﻿using Capstone_Group2.DataAccess;
+using Capstone_Group2.Entities;
 using Capstone_Group2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Capstone_Group2.Controllers
 {
@@ -9,11 +11,13 @@ namespace Capstone_Group2.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private CapstoneDbContext _taskDbContext;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager) 
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, CapstoneDbContext taskDbContext) 
         {
             _userManager= userManager;
             _signInManager= signInManager;
+            _taskDbContext = taskDbContext;
         }
 
         [HttpGet]
@@ -33,7 +37,18 @@ namespace Capstone_Group2.Controllers
 
                 if (result.Succeeded)
                 {
+                    // Create a new timetable for the user
+                    var timetable = new Timetable
+                    {
+                        UserId = user.Id,
+                        TimetableId = user.Id
+                    };
+
+                    _taskDbContext.timetables.Add(timetable);
+                    await _taskDbContext.SaveChangesAsync();
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
                     return RedirectToAction("Index", "Home");
                 }
                 else 

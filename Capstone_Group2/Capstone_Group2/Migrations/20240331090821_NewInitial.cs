@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Capstone_Group2.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class NewInitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -107,32 +107,11 @@ namespace Capstone_Group2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tasks",
-                columns: table => new
-                {
-                    TaskId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TaskName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TaskDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Start_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    End_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    PriorityId = table.Column<int>(type: "int", nullable: false),
-                    StatusId = table.Column<int>(type: "int", nullable: false),
-                    TimetableId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tasks", x => x.TaskId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "timetables",
                 columns: table => new
                 {
-                    TimetableId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    TimetableId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -245,13 +224,52 @@ namespace Capstone_Group2.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Tasks",
+                columns: table => new
+                {
+                    TaskId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TaskName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TaskDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Start_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    End_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    PriorityId = table.Column<int>(type: "int", nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    TimetableId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tasks", x => x.TaskId);
+                    table.ForeignKey(
+                        name: "FK_Tasks_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tasks_Priorities_PriorityId",
+                        column: x => x.PriorityId,
+                        principalTable: "Priorities",
+                        principalColumn: "PriorityId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tasks_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "CategoryId", "CategoryName" },
                 values: new object[,]
                 {
                     { 1, "School" },
-                    { 2, "Work" }
+                    { 2, "Work" },
+                    { 3, "Personal" }
                 });
 
             migrationBuilder.InsertData(
@@ -275,14 +293,14 @@ namespace Capstone_Group2.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Tasks",
-                columns: new[] { "TaskId", "CategoryId", "End_Date", "PriorityId", "Start_Date", "StatusId", "TaskDescription", "TaskName", "TimetableId" },
-                values: new object[] { 1, 1, new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, new DateTime(2024, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "First Task", "First Task", 1 });
-
-            migrationBuilder.InsertData(
                 table: "timetables",
                 columns: new[] { "TimetableId", "UserId" },
-                values: new object[] { 1, 1 });
+                values: new object[] { "1", "1" });
+
+            migrationBuilder.InsertData(
+                table: "Tasks",
+                columns: new[] { "TaskId", "CategoryId", "End_Date", "PriorityId", "Start_Date", "StatusId", "TaskDescription", "TaskName", "TimetableId" },
+                values: new object[] { 1, 1, new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, new DateTime(2024, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "First Task", "First Task", "1" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -322,6 +340,21 @@ namespace Capstone_Group2.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_CategoryId",
+                table: "Tasks",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_PriorityId",
+                table: "Tasks",
+                column: "PriorityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_StatusId",
+                table: "Tasks",
+                column: "StatusId");
         }
 
         /// <inheritdoc />
@@ -343,16 +376,7 @@ namespace Capstone_Group2.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Priorities");
-
-            migrationBuilder.DropTable(
                 name: "Reminders");
-
-            migrationBuilder.DropTable(
-                name: "Statuses");
 
             migrationBuilder.DropTable(
                 name: "Tasks");
@@ -365,6 +389,15 @@ namespace Capstone_Group2.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Priorities");
+
+            migrationBuilder.DropTable(
+                name: "Statuses");
         }
     }
 }

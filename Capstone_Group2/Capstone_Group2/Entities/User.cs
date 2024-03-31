@@ -7,5 +7,7 @@ namespace Capstone_Group2.Entities
     {
         public string? UserEmailAddress { get; set; }
 
+
+
     }
 }
