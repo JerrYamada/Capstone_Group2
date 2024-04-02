@@ -16,7 +16,8 @@ namespace Capstone_Group2.DataAccess
         public DbSet<Status> Statuses { get; set; }
         public DbSet<TimetableTask> Tasks { get; set; }
         public DbSet<Timetable> timetables { get; set; }
-        
+        public DbSet<EmailNotification> EmailNotifications { get; set; }
+
         public CapstoneDbContext(DbContextOptions<CapstoneDbContext> options) : base(options) { }
 
         public static async Task CreateAdminUser(IServiceProvider serviceProvider)

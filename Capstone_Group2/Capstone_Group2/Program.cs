@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Capstone_Group2.Entities;
 using Capstone_Group2.DataAccess;
+using Capstone_Group2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<EmailService>();
 
 
 string connectionString = builder.Configuration.GetConnectionString("Capstone_LocalDb");

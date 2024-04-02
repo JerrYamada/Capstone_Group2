@@ -440,7 +440,22 @@ namespace Capstone_Group2.Controllers
         {
             var task = _taskDbContext.Tasks.Find(id);
 
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            // Find email notifications for the task and remove them
+            var emailNotifications = _taskDbContext.EmailNotifications
+                .Where(en => en.TaskId == id)
+                .ToList();
+
+            _taskDbContext.EmailNotifications.RemoveRange(emailNotifications);
+
+            // Remove the task
             _taskDbContext.Tasks.Remove(task);
+
+            // Save changes to the database
             _taskDbContext.SaveChanges();
 
             return RedirectToAction("GetAllTasks", "Task");
