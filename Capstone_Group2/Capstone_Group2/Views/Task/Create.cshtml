@@ -60,8 +60,10 @@
         <label asp-for="StatusType">Status Type</label>
         <select asp-for="StatusType" class="form-control">
             <option value="1">Not Done</option>
-            <option value="2">Due Soon</option>
-            <option value="3">Finished</option>
+            
+            @*only the not done option is enabled for creation*@
+            <@*option value="2">Due Soon</option>
+            <option value="3">Finished</option>*@
         </select>
         <span asp-validation-for="StatusType" class="text-danger"></span>
     </div>

@@ -116,6 +116,8 @@ namespace Capstone_Group2.Controllers
                                         NotificationSent = true
                                     };
 
+                                    //Change task's status to due soon
+                                    task.StatusId = 2;
                                     _taskDbContext.EmailNotifications.Add(emailNotification);
                                 }
 

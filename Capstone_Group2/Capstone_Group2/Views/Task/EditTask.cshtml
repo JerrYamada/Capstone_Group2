@@ -65,7 +65,9 @@
         <select asp-for="StatusId" class="form-control">
             <!-- Populate options for statuses -->
             <option value="1">Not Done</option>
-            <option value="2">Due Soon</option>
+
+            @*Due Soon status is not enabled for user input*@
+            @*<option value="2">Due Soon</option>*@
             <option value="3">Finished</option>
         </select>
         <span asp-validation-for="StatusId" class="text-danger"></span>
